@@ -1,0 +1,174 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="theme-color" content="#7289DA" />
+
+<title>Nerrix Solutions</title>
+<link rel="shortcut icon" type="image/png" href="https://nerrix.ovh/img/logo.png?v=1">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link rel="icon" href="https://nerrix.ovh/img/logo.png?v=1" type="image/png">
+<link href="https://discord.id/bundle.css" rel="stylesheet">
+<link href="https://discord.id/stil.css" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+.grecaptcha-badge {
+	visibility: hidden!important;
+}
+@font-face {
+  font-family: "Logos";
+  font-style: normal;
+  font-weight: normal;
+  font-display: auto;
+  src: url(https://discord.id/fa.ttf) format("truetype")
+}
+.fa-search:before {
+  content: "\f2e8  Nerrix Solutions Payment";
+  font-family: Logos, Nunito;
+  color: white;
+  font-size: 1.5rem;
+  font-style: Normal;
+  margin: 0.5em;
+}
+.fa-bck:before {
+  content: "\f0a8  Lookup";
+  font-family: Logos, Nunito;
+  color: white;
+  font-size: 1.2rem;
+  font-style: Normal;
+  margin: 0.5em;
+  float: left;
+  margin-top: 0.2em;
+}
+	
+#footer {
+  bottom: 0;
+  height: 2em;
+  left: 0;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-size: 0.7em;
+}
+
+.spinner > div {
+  width: 40px;
+  height: 40px;
+  vertical-align: 8%;
+  background-color: white;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.2s infinite ease-in-out both;
+  /* 1.4 */
+  animation: sk-bouncedelay 1.2s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.30s;
+  /* -0,32 */
+  animation-delay: -0.30s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.14s;
+  /* -0,16 */
+  animation-delay: -0.14s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.2) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label:before {
+  background-color: #7289DA!important;
+}
+.custom-control-input:focus ~ .custom-control-label::before {
+ box-shadow: 0 0 0 1px #637084, 0 0 0 .2rem rgba(115, 106, 228, 0.34)!important;
+}
+</style>
+</head>
+<body bgcolor="#2C2F33">
+<div class="header"><span><span style="display: inline; border-radius: 50%;" class="fa-search"></span></span>
+</div>
+<center style="min-height: calc(100vh - 6rem);">
+<br />
+<div id="#container" class="container container">
+<div class="col-md-10 col-xs-12">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+var checki = "1";
+
+
+function sendDonation() {
+    document.getElementById("dots").style.display = "unset";
+    var settings = {
+		"async": true,
+		"url": "https://lookup.discord.id/api/payments/nerrix/createDonation?amount=" + parseInt(parseFloat(document.getElementById("invcode").value) * 100).toString(),
+		"method": "GET",
+	};
+	$.ajax(settings).done(function (response) {
+        var stripe = Stripe('pk_live_RvG223SdICivDSkLQGeH2ASR00ileoRiie');
+        stripe.redirectToCheckout({ sessionId: response.id });
+    })
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+
+
+
+
+</script>
+
+<div class="form-group">
+<p>Enter an amount in USD:</p>
+<input class="form-control eingp" style="border-radius: 10px; width: 8rem!important;" type="text" id="invcode" name="code"  placeholder="0.00" required maxlength="8"></input>
+<div class="custom-control custom-radio custom-control-inline" id="rbtn1" style="display: none;">
+<label class="custom-control-label" for="setcfg">Set Config</label></div>
+<div class="custom-control custom-radio custom-control-inline" id="rbtn2" style="display: none;">
+<div id="gxle"></div>
+</div>
+<div class="pull-center">
+    <br>
+<button id="login3" style="color: white; border-radius: 5px; border: 0;" onclick="sendDonation()" class="btn btn-success" formnovalidate>Pay</button>
+<div class="spinner" id="dots" style="display: none;">
+    <br><br>
+<div class="bounce1"></div>
+<div class="bounce2"></div>
+<div class="bounce3"></div>
+<div class="bounce4"></div></div>
+</div>
+
+<br>
+<div id="result"></div>
+<div id="result2" style="display: none; font-size: 1rem!important;"></div>
+<div id="result3" style="display: none; font-size: 1rem!important;">
+<h4 style="width: max-content; background-color: #f26666a3;padding: 0.5rem;border-radius: 15px; font-size: 1rem!important;">Unfortunately, it appears that you have not yet donated the necessary $8.</h4>
+</div>
+</div>
+</center>
+
+</body>
+</html>
